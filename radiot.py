@@ -33,7 +33,6 @@ def message_handler(conn, mess):
             txt = is_txt[text]
             if type(txt) == list:
                 txt = random.choice(txt)
-            random.shuffle(is_txt[text])
             time.sleep(0.9)
             send(conn, txt)
     except:
