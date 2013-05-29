@@ -10,12 +10,6 @@ assert len(sys.argv[1:]) == 3, 'params required: <login> <password> <name>'
 
 is_txt['help!'] = "commands - " + ", ".join(is_txt.keys())
 
-
-#keys = {}
-#for keys_list in [ x for x in is_txt.keys() if type(is_txt[x]) == list ]:
-#    if len(is_txt[keys_list]) > 0:
-#        keys[keys_list] = [ x for x in range(1, len(is_txt[keys_list])+1 ) if len(is_txt[keys_list]) > 0 ]
-
 def send(conn, mess):
     try:
         mess = mess.decode('UTF-8')
