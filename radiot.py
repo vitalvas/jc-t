@@ -1,12 +1,19 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import xmpp, time, sys
-import random
+import xmpp, time, sys, random
+import datetime, re, urllib2
 
 from text import is_txt
 
 assert len(sys.argv[1:]) == 3, 'params required: <login> <password> <name>'
+
+if all([datetime.datetime.utcnow().weekday() == 5, 19 <= datetime.datetime.utcnow().time().hour <= 23]):
+    req = urllib2.urlopen('http://www.radio-t.com')
+    num = max(map(lambda x: int(x), re.findall('/podcast-([0-9]+)/', req.read()))) + 1
+    req.close()
+    is_txt['выпуск!'.decode('UTF-8')] = 'Сейчас наверно идет %s выпуск. Для уверенности можно подсмотреть здесь: http://www.radio-t.com' % num
+
 
 is_txt['help!'] = "commands - " + ", ".join(is_txt.keys())
 
