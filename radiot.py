@@ -8,12 +8,17 @@ from text import is_txt
 
 assert len(sys.argv[1:]) == 3, 'params required: <login> <password> <name>'
 
-if all([datetime.datetime.utcnow().weekday() == 5, 19 <= datetime.datetime.utcnow().time().hour <= 23]):
+def return_podcast():
     req = urllib2.urlopen('http://www.radio-t.com')
     num = max(map(lambda x: int(x), re.findall('/podcast-([0-9]+)/', req.read()))) + 1
     req.close()
-    is_txt['выпуск!'.decode('UTF-8')] = 'Сейчас наверно идет %s выпуск. Для уверенности можно подсмотреть здесь: http://www.radio-t.com' % num
+    num_to_smile = [':zero:',':one:',':two:',':three:',':four:',':five:',':six:',':seven:',':eight:',':nine:']
+    num_smile = ''.join(map(lambda x: num_to_smile[x], [int(i) for i in str(num)]))
+    if all([datetime.datetime.utcnow().weekday() == 5, 19 <= datetime.datetime.utcnow().time().hour <= 23]):
+        return '%s Сейчас наверно идет %s выпуск. Для уверенности можно подсмотреть здесь: http://www.radio-t.com' % (num_smile, num)
+    return '%s В ожидании %s выпуска. Детали здесь: http://www.radio-t.com' % (num_smile, num)
 
+is_txt['выпуск!'.decode('UTF-8')] = return_podcast()
 
 is_txt['help!'] = "commands - " + ", ".join(is_txt.keys())
 
