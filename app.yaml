@@ -1,4 +1,9 @@
-application: jc-t
+application: jabber_bot_radiot
 runtime: {{python}} {{appdir}}/radiot.py {{secure|app:'js-t'}}
 balancer: off
 require: ['xmpppy']
+
+cron:
+- description: Update code from github and restart
+  commands: ['git pull', '/usr/bin/env supervisorctl restart {{appname}}']
+  schedule: every 30 mins
