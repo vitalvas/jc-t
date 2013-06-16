@@ -1,0 +1,4 @@
+application: jc-t
+runtime: {{python}} {{appdir}}/radiot.py {{secure|app:'js-t'}}
+balancer: off
+require: ['xmpppy']
